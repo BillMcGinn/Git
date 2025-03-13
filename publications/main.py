@@ -10,7 +10,7 @@ import gspread
 from df2gspread import df2gspread as d2g
 from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
-from ads_fetch import fetch_ads_dataframe
+from ads_fetch import fetch_ads_dataframe_page_by_page
 #from ads_query import fetch_ads_dataframe
 #Must use your own personal ADS key
 #Bill McGinn's ADS key is: nTigmrHHUwONTbRHW2ceHSC5wiUDst4GRUHGevRM
@@ -36,6 +36,8 @@ WIYN9Key = 'docs(library/V4vvstqjTL6Lc5u_D_N0ug)' #WIYN .9m Library
 NOIRLabStaffRefereedKey = 'docs(library/RrGZ7UpxRSaRQXn8ZRtL2g)+property:refereed' #Library of all refereed NOIRLab staff publications
 NOIRLabStaffNotRefereedKey = 'docs(library/RrGZ7UpxRSaRQXn8ZRtL2g)+property:notrefereed' #Library of all non refereed NOIRLab staff publications
 
-MSO = fetch_ads_dataframe(MSOKey, telescope_name = 'MSO', program_name = 'MSO')
-
+print("Fetching MSO library data...")
+#Fetch the MSO library data
+MSO = fetch_ads_dataframe_page_by_page(MSOKey, telescope_name = 'MSO', program_name = 'MSO')
+print("MSO library data fetched successfully.")
 print(MSO)
