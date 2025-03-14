@@ -12,6 +12,7 @@ from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
 from ads_fetch import fetch_ads_dataframe_page_by_page
 from ads_fetch import fetch_ads_bibgroup_dataframe_page_by_page
+from clean_df import clean_publication_dates
 
 #Must use your own personal ADS key
 #Bill McGinn's ADS key is: nTigmrHHUwONTbRHW2ceHSC5wiUDst4GRUHGevRM
@@ -40,7 +41,7 @@ NOIRLabStaffNotRefereedKey = 'docs(library/RrGZ7UpxRSaRQXn8ZRtL2g)+property:notr
 #NOIRlab bibgroup data
 print("Fetching NOIRLab bibgroup data... ")
 #Fetch the NOIRLab bibgroup data
-NOIRLab = fetch_ads_bibgroup_dataframe_page_by_page(NOIRLabStaffRefereedKey, telescope_name = 'NOIRLab', program_name = 'NOIRLab')
+NOIRLab = fetch_ads_bibgroup_dataframe_page_by_page('noirlab', telescope_name = 'NOIRLab', program_name = 'NOIRLab')
 print("NOIRLab bibgroup data fetched successfully.")
 
 #MSO library data
@@ -88,7 +89,7 @@ print("Gemini South library data fetched successfully.")
 #Gemini bibgroup data
 print("Fetching Gemini bibgroup data...")
 #Fetch the Gemini bibgroup data\
-Gemini = fetch_ads_bibgroup_dataframe_page_by_page('docs(library/2Wz3q6hRrGmI1Q8nQ3w4kA)', telescope_name = 'Gemini', program_name = 'Gemini')
+Gemini = fetch_ads_bibgroup_dataframe_page_by_page('gemini', telescope_name = 'Gemini', program_name = 'Gemini')
 print("Gemini bibgroup data fetched successfully.")
 
 #CSDC library data
@@ -138,5 +139,27 @@ print("Fetching NOIRLab Not Refereed library data...")
 #Fetch the NOIRLab Not Refereed library data
 NOIRLabNotRefereed = fetch_ads_dataframe_page_by_page(NOIRLabStaffNotRefereedKey, telescope_name = 'NOIRLab Not Refereed', program_name = 'Staff')
 print("NOIRLab Not Refereed library data fetched successfully.")
-#add
 
+#Concatenate all telescope data, excluding NOIRLab and NOIRLab Staff data
+AllTelescopes = pd.concat([MSO, Mayall, WIYN, Blanco, SOAR, CSDC, GeminiNorth, GeminiSouth, Gemini, NOIRLabSource, ANTARES, DECam, AstroDataLab])
+#Concatenate Staff data
+NOIRLabStaff = pd.concat([NOIRLabRefereed, NOIRLabNotRefereed])
+print("All dataframes concatenated successfully.")
+
+#export the dataframes to csv
+NOIRLab.to_csv('NOIRLab.csv', index=False)
+AllTelescopes.to_csv('Telescope.csv', index=False)
+NOIRLabStaff.to_csv('NOIRLabStaff.csv', index=False)
+print("Dataframes exported to csv successfully.")
+
+#Clean the dataframes
+clean_NOIRLab = clean_publication_dates(NOIRLab)
+clean_telescopes = clean_publication_dates(AllTelescopes)
+clean_NOIRLabStaff = clean_publication_dates(NOIRLabStaff)
+print ("Dataframes cleaned successfully.")
+
+#Export the dataframes to csv
+clean_NOIRLab.to_csv('NOIRLab.csv', index=False)
+clean_telescopes.to_csv('Telescope.csv', index=False)
+clean_NOIRLabStaff.to_csv('NOIRLabStaff.csv', index=False)
+print("Cleaned dataframes exported to csv successfully.")
