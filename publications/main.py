@@ -13,6 +13,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from ads_fetch import fetch_ads_dataframe_page_by_page
 from ads_fetch import fetch_ads_bibgroup_dataframe_page_by_page
 from clean_df import clean_publication_dates
+from gsheets_upload import upload_dataframes_to_gsheets
 
 #Must use your own personal ADS key
 #Bill McGinn's ADS key is: nTigmrHHUwONTbRHW2ceHSC5wiUDst4GRUHGevRM
@@ -132,12 +133,16 @@ print("SMARTS library data fetched successfully.")
 print("Fetching NOIRLab Refereed library data...")
 #Fetch the NOIRLab Refereed library data
 NOIRLabRefereed = fetch_ads_dataframe_page_by_page(NOIRLabStaffRefereedKey, telescope_name = 'NOIRLab Refereed', program_name = 'Staff')
+#Add a column to the dataframe that indicates that the publication is refereed
+NOIRLabRefereed['Refereed'] = "Refereed"
 print("NOIRLab Refereed library data fetched successfully.")
 
 #NOIRLab Not Refereed library data
 print("Fetching NOIRLab Not Refereed library data...")
 #Fetch the NOIRLab Not Refereed library data
 NOIRLabNotRefereed = fetch_ads_dataframe_page_by_page(NOIRLabStaffNotRefereedKey, telescope_name = 'NOIRLab Not Refereed', program_name = 'Staff')
+#Add a column to the dataframe that indicates that the publication is not refereed
+NOIRLabNotRefereed['Refereed'] = "Not Refereed"
 print("NOIRLab Not Refereed library data fetched successfully.")
 
 #Concatenate all telescope data, excluding NOIRLab and NOIRLab Staff data
@@ -163,3 +168,17 @@ clean_NOIRLab.to_csv('NOIRLab.csv', index=False)
 clean_telescopes.to_csv('Telescope.csv', index=False)
 clean_NOIRLabStaff.to_csv('NOIRLabStaff.csv', index=False)
 print("Cleaned dataframes exported to csv successfully.")
+
+#Create dataframe dictionary
+dataframes = {
+    'LessNOIRLab': clean_NOIRLab,
+    'LessTelescopes': clean_telescopes,
+    'LessNOIRLabStaff': clean_NOIRLabStaff
+}
+#Publications data sheet key for https://docs.google.com/spreadsheets/d/1Kl9ao9gtcU5VcEMSN0QLittihgBqckx6vxKiYg6Z78A/
+sheet_key = '1Kl9ao9gtcU5VcEMSN0QLittihgBqckx6vxKiYg6Z78A'
+
+#Call helper function to upload dataframes to Google Sheets
+print("Initiating helper function to upload dataframes to Google Sheets...")
+upload_dataframes_to_gsheets(dataframes, sheet_key)
+print("Upload finished")
