@@ -142,7 +142,7 @@ print("Fetching NOIRLab Not Refereed library data...")
 #Fetch the NOIRLab Not Refereed library data
 NOIRLabNotRefereed = fetch_ads_dataframe_page_by_page(NOIRLabStaffNotRefereedKey, telescope_name = 'NOIRLab Not Refereed', program_name = 'Staff')
 #Add a column to the dataframe that indicates that the publication is not refereed
-NOIRLabNotRefereed['Refereed'] = "Not Refereed"
+NOIRLabNotRefereed['Refereed'] = "Non-refereed"
 print("NOIRLab Not Refereed library data fetched successfully.")
 
 #Concatenate all telescope data, excluding NOIRLab and NOIRLab Staff data
