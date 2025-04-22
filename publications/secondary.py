@@ -45,13 +45,13 @@ NEIDDissertationKey = 'docs(library/EUBsNnEeQXikJlABpp5QXg)' #NEID Dissertation 
 
 #Mayall Instruments Charts
 MayallDesiKey = 'docs(library/GuY5b8LWQrKUvBpBeKMCTA)' #Mayall DESI Library
-MayallMosaic1Key = 'docs(library/1b2d9g0uQx6c4a3k5e8f7w)' #Mayall Mosaic 1 Library
+MayallMosaic1Key = 'docs(library/GuY5b8LWQrKUvBpBeKMCTA)' #Mayall Mosaic 1 Library
 MayallMosaic3Key = 'docs(library/HrKPDtdFSLChzyBhY63ErQ)' #Mayall Mosaic 3 Library
 MayallNewfirmKey = 'docs(library/qrX4BDq6TA6jkKiytrzwog)' #Mayall Newfirm Library
 MayallRCSpectrographKey = 'docs(library/jFSmx3E-T-2eqmX1UyXbPA)' #Mayall RC Spectrograph Library
 
 #Blanco Instrument Charts
-BlancoDECamKey = 'docs(library/yL0w6HBoT2G6kJfSrYHqlQ">)' #Blanco DECam Library
+BlancoDECamKey = 'docs(library/yL0w6HBoT2G6kJfSrYHqlQ)' #Blanco DECam Library
 BlancoMosaic2Key =  'docs(library/1itEjDVAS0WhCHqVr55FIw)' #Blanco Mosaic 2 Library
 BlancoNewfirmKey = 'docs(library/l0pArcIkSBmrxgWwyAGkZA)' #Blanco Newfirm Library
 
@@ -69,7 +69,7 @@ SOARTripleSPec41Key = 'docs(library/7U-qRx2aT5Syd8U8US-AGA)' #SOAR TripleSpec 4.
 #WIYN library data
 print("Fetching WIYN library data...")
 #Fetch the WIYN library data
-MSO = fetch_ads_dataframe_page_by_page(WIYNKey, telescope_name = 'WIYN', program_name = 'WIYN')
+WIYN = fetch_ads_dataframe_page_by_page(WIYNKey, telescope_name = 'WIYN', program_name = 'WIYN')
 print("WIYN library data fetched successfully.")
 
 #WIYN35m Technical library data
@@ -117,7 +117,7 @@ print("WIYN 0.9m Refereed library data fetched successfully.")
 #WIYN 0.9m Dissertation library data
 print("Fetching WIYN 0.9m Dissertation library data...")
 #Fetch the WIYN 0.9m Dissertation library data
-WIYN9DissertationKey = fetch_ads_dataframe_page_by_page(WIYN9DissertationKey, telescope_name = 'WIYN 0.9m Dissertation', program_name = 'WIYN')
+WIYN9Dissertation = fetch_ads_dataframe_page_by_page(WIYN9DissertationKey, telescope_name = 'WIYN 0.9m Dissertation', program_name = 'WIYN')
 print("WIYN 0.9m Dissertation library data fetched successfully.")
 
 #WIYN / NEID Charts Queries
