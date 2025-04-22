@@ -1,7 +1,8 @@
 #Import libraries
 #Must install all these libraries via command line for script to run
 import requests #necessary library for ADS access
-import ads #necessary library for ADS access``
+import ads #necessary library for ADS access
+#The Python API for ADS that is used in this script is documented at https://ads.readthedocs.io/en/latest/
 import numpy as np
 import pandas as pd
 from datetime import datetime
@@ -19,6 +20,7 @@ from gsheets_upload import upload_dataframes_to_gsheets
 #Bill McGinn's ADS key is: nTigmrHHUwONTbRHW2ceHSC5wiUDst4GRUHGevRM
 #Your ADS key can be found at https://ui.adsabs.harvard.edu/user/settings/token after making an ADS account
 #your account is limited to searching for 5000 pages of library results per day, which is beyond adequate for this script
+#The Python API for ADS that is used in this script is documented at https://ads.readthedocs.io/en/latest/
 ads.config.token = "nTigmrHHUwONTbRHW2ceHSC5wiUDst4GRUHGevRM"
 
 #Search paramaters related to the MSO and CSDC libraries, these libraries are not maintaned in a "bibgroup"
